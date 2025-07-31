@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manutenção Preditiva com IA - Folder de Apresentação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        .folder {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: none;
+            border-radius: 0;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+            
+            .folder {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                min-height: 100vh;
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            border: 3px solid #20c997;
+        }
+
+        .logo-inner {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: bold;
+            font-size: 8px;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        .main-title {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .subtitle {
+            font-size: 1em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content {
+            padding: 20px 15px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            color: #28a745;
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #28a745;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .description {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2);
+            border-color: #28a745;
+        }
+
+        .feature-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .feature-title {
+            font-size: 1em;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 8px;
+        }
+
+        .feature-text {
+            color: #666;
+            line-height: 1.4;
+            font-size: 0.85em;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefits-list li {
+            background: white;
+            margin-bottom: 8px;
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border-left: 3px solid #28a745;
+            position: relative;
+            font-size: 0.9em;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #28a745;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .process-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .process-step {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 120px;
+            position: relative;
+            font-size: 0.8em;
+        }
+
+        .process-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            color: #28a745;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #343a40, #495057);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .company-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .company-logo {
+            background: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #333;
+            font-size: 0.9em;
+        }
+
+        .contact-info {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .folder {
+                margin: 10px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .main-title {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-flow {
+                flex-direction: column;
+            }
+            
+            .process-step:not(:last-child)::after {
+                content: '↓';
+                right: 50%;
+                top: 100%;
+                transform: translateX(50%);
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #28a745 0%, #20c997 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="folder">
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-inner">
+                        <div class="logo-text">
+                            MANUTENÇÃO<br>
+                            DO FUTURO
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1 class="main-title">Manutenção Preditiva com IA</h1>
+            <p class="subtitle">Transformando a gestão de ativos com Inteligência Artificial</p>
+        </header>
+
+        <main class="content">
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🎯</span>
+                    O que é a Solução
+                </h2>
+                <div class="description">
+                    A nova ferramenta de gestão de ativos é uma <span class="highlight">plataforma de manutenção preditiva</span> que monitora ativos em tempo real, antecipa falhas e reduz paradas inesperadas com base em dados. Utilizando sensores inteligentes e Inteligência Artificial, a solução oferece monitoramento contínuo e alertas preventivos para maximizar a eficiência operacional.
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">⚙️</span>
+                    Como Funciona
+                </h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📡</div>
+                        <h3 class="feature-title">Sensores Inteligentes</h3>
+                        <p class="feature-text">Dispositivos sem fio fixados nos ativos captam dados de vibração, temperatura e rotação em tempo real, com aferições a cada 5 minutos.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📶</div>
+                        <h3 class="feature-title">Transmissão Automática</h3>
+                        <p class="feature-text">Receptores coletam dados dos sensores e enviam automaticamente para a nuvem via redes 4G ou Wi-Fi.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h3 class="feature-title">Inteligência Artificial</h3>
+                        <p class="feature-text">A IA avalia dados de vibração, temperatura e rotação, compara com histórico e gera alertas com recomendações assertivas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3 class="feature-title">Interface Intuitiva</h3>
+                        <p class="feature-text">Plataforma web e aplicativo móvel permitem acompanhar o desempenho dos ativos e receber notificações em tempo real.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🎯</span>
+                    Benefícios para a CMPC
+                </h2>
+                <ul class="benefits-list">
+                    <li>
+                        <strong>Assertividade:</strong> Uso de IA combinada com expertise humana garante identificação rápida de anomalias com máxima antecedência
+                    </li>
+                    <li>
+                        <strong>Eficiência:</strong> Integração da IA torna o trabalho dos times mais eficiente e focado nas tarefas de maior valor
+                    </li>
+                    <li>
+                        <strong>Redução de Falhas:</strong> Minimiza eventos de parada não planejada (PTP) e ações emergenciais, permitindo rotina mais planejada
+                    </li>
+                    <li>
+                        <strong>Fácil Acesso:</strong> Dados dos sensores preditivos facilmente acessíveis por todos na CMPC
+                    </li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🔄</span>
+                    Novo Modelo Operacional
+                </h2>
+                <div class="process-flow">
+                    <div class="process-step">Recebimento de Alertas</div>
+                    <div class="process-step">Primeiro Combate</div>
+                    <div class="process-step">Investigação</div>
+                    <div class="process-step">Tratativas</div>
+                    <div class="process-step">Acompanhamento</div>
+                    <div class="process-step">Sustentação</div>
+                    <div class="process-step">Gestão de KPIs</div>
+                </div>
+                <div class="description" style="margin-top: 20px;">
+                    O processo evolui para compartilhar atividades e responsabilidades com novos times, integrando IA para monitoramento contínuo, alertas preventivos e suporte técnico 24h via chat Tractian.
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">📊</span>
+                    Recursos da Plataforma
+                </h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3 class="feature-title">App Mobile</h3>
+                        <p class="feature-text">Aplicativo recomendado para uso durante rotina, facilitando acompanhamento de alertas fora da planta e permitindo menor tempo de reação.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💻</div>
+                        <h3 class="feature-title">Plataforma Web</h3>
+                        <p class="feature-text">Interface para análises detalhadas de alertas, visualização ampla de indicadores e análise completa de gráficos.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="company-logos">
+                <div class="company-logo">CMPC</div>
+                <div class="company-logo">BAIN & COMPANY</div>
+                <div class="company-logo">TRACTIAN</div>
+            </div>
+            <div class="contact-info">
+                <p><strong>Treinamentos - Agosto de 2025</strong></p>
+                <p>Projeto Manutenção do Futuro</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
